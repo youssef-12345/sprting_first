@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: Supply Chain Management System
+  datasource:
+    url: jdbc:mysql://mysql:3306/supply_chain_db
+    username: user
+    password: pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+    static-path-pattern: /static/**
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+logging:
+  level:
+    root: INFO
+    com.example.supplychain: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
+
+jwt:
+  secret: "your-secret-key-change-this-in-production-with-a-strong-key-at-least-256-bits"
+  expiration: 86400000
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    path: /v3/api-docs

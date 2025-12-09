@@ -90,6 +90,12 @@ public class SecurityConfig {
                         // Analytics
                         .requestMatchers(HttpMethod.GET, "/api/analytics/**").hasAnyRole("MANAGER", "ADMIN")
 
+                        // Admin Routes
+                        .requestMatchers(HttpMethod.GET, "/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/admin/**").hasRole("ADMIN")
+
                         // Any other request must be authenticated
                         .anyRequest().authenticated()
                 )

@@ -1,0 +1,45 @@
+{
+  "name": "Supply Chain Management System",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "supply-chain-app",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.extension-pack-for-java",
+        "redhat.vscode-yaml",
+        "ms-docker.docker",
+        "ms-vscode-remote.remote-containers",
+        "eamodio.gitlens",
+        "SonarSource.sonarlint-vscode",
+        "42Crunch.vscode-openapi"
+      ],
+      "settings": {
+        "java.server.launchMode": "Standard",
+        "java.import.gradle.enabled": false,
+        "[java]": {
+          "editor.defaultFormatter": "redhat.java",
+          "editor.formatOnSave": true
+        },
+        "python.linting.enabled": false,
+        "files.watcherExclude": {
+          "**/target": true,
+          "**/.git": true
+        }
+      }
+    }
+  },
+  "forwardPorts": [8080, 3306],
+  "portsAttributes": {
+    "8080": {
+      "label": "Spring Boot App",
+      "onAutoForward": "notify"
+    },
+    "3306": {
+      "label": "MySQL",
+      "onAutoForward": "ignore"
+    }
+  },
+  "postCreateCommand": "mvn clean package -DskipTests",
+  "remoteUser": "root"
+}

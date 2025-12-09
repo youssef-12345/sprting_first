@@ -1,0 +1,36 @@
+# Maven build artifacts (but keep the JAR)
+# target/  # KEEP THIS - We need the JAR file
+.m2/
+# *.jar    # KEEP THIS - We need the final JAR
+
+# Git
+.git/
+.gitignore
+.github/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+
+# Build
+build/
+dist/
+*.class
+
+# Logs
+*.log
+logs/
+
+# Documentation
+README.md
+DOCKER_TROUBLESHOOTING.md
+QUICKSTART.md
+INDEX.md
+PROJECT_COMPLETION_SUMMARY.md
+
+# Test files
+src/test/

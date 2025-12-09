@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mysql:
     image: mysql:8.0
@@ -12,29 +14,31 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
       timeout: 20s
       retries: 10
     networks:
       - supply-chain-network
 
-  app:
+  supply-chain-app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: supply-chain-app
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/supply_chain_db
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: pass
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: false
-      SPRING_PROFILES_ACTIVE: prod
     ports:
       - "8080:8080"
     depends_on:
       mysql:
         condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/supply_chain_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_SQL_INIT_MODE: always
+      SPRING_SQL_INIT_DATA_LOCATIONS: classpath:data.sql
     networks:
       - supply-chain-network
     restart: unless-stopped
